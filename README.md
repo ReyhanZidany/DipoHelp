@@ -1,6 +1,8 @@
-# DipoHelp: Solusi Terpadu untuk Layanan Universitas
+<p align="center">
+  <img src="public/assets/img/dipohelp_bg.png" alt="DipoHelp Logo" width="200">
+</p>
 
-![DipoHelp Logo](public/assets/img/dipohelp_bg.png)
+# DipoHelp: Solusi Terpadu untuk Layanan Universitas
 
 DipoHelp adalah platform layanan terpadu yang dirancang untuk memudahkan mahasiswa dan staf Universitas Diponegoro dalam mengakses berbagai layanan administrasi, seperti IT support, fasilitas kampus, serta berbagai informasi terkait kegiatan akademik dan kemahasiswaan. Dengan antarmuka yang mudah digunakan, DipoHelp menawarkan pengalaman pengguna yang efisien dan efektif.
 
