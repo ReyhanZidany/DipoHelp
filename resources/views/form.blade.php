@@ -45,55 +45,50 @@
         </div>
       </div>
       <div class="bg-white shadow-xl border rounded-3xl p-6 mt-10">
-        <form>
+        <form action="{{ route('tickets.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
           <div class="mb-4">
-            <label class="block text-gray-700">Nama Lengkap</label>
-            <input class="w-full mt-2 p-3 border rounded" placeholder="nama lengkap" type="text" required/>
+              <label class="block text-gray-700">Nama Lengkap</label>
+              <input class="w-full mt-2 p-3 border rounded" placeholder="nama lengkap" type="text" name="name" required />
           </div>
           <div class="mb-4">
-            <label class="block text-gray-700">Email Kampus</label>
-            <input class="w-full mt-2 p-3 border rounded" placeholder="email kampus" type="email" required />
-        </div>    
-        <div class="mb-4">
-            <label class="block text-gray-700">NIP / NIM</label>
-            <input class="w-full mt-2 p-3 border rounded" placeholder="nip / nim" type="text" id="nim" pattern="\d+" title="Hanya angka yang diperbolehkan" required />
-        </div>
-          <div class="mb-4">
-            <label class="block text-gray-700">Nomor Telepon</label>
-            <input id="phone" class="w-full mt-2 p-3 border rounded" placeholder="+62 nomor telepon" type="text" />
-        </div>
-          <div class="mb-4">
-            <label class="block text-gray-700">Kategori</label>
-            <select class="w-full mt-2 p-3 border rounded">
-                <option>Pilih kategori</option>
-                <option>Akademik</option>
-                <option>Keuangan</option>
-                <option>IT Support</option>
-                <option>Fasilitas</option>
-                <option>Kemahasiswaan</option>
-                <option>Lainnya</option>
-            </select>
-        </div>
-          <div class="mb-4">
-            <label class="block text-gray-700">Deskripsi Masalah</label>
-            <textarea class="w-full mt-2 p-3 border rounded" placeholder="deskripsi masalah"></textarea>
+              <label class="block text-gray-700">Email Kampus</label>
+              <input class="w-full mt-2 p-3 border rounded" placeholder="email kampus" type="email" name="email" required />
           </div>
           <div class="mb-4">
-            <label class="block text-gray-700">Lampiran Dokumen (Opsional)</label>
-            <div class="border-dashed border-2 border-gray-300 rounded p-6 text-center">
-              <p class="text-gray-500">
-                Drop here to attach or
-                <a class="text-blue-600" href="#">upload</a>
-              </p>
-              <p class="text-gray-500 text-sm">Max size: 5GB</p>
-            </div>
+              <label class="block text-gray-700">NIP / NIM</label>
+              <input class="w-full mt-2 p-3 border rounded" placeholder="nip / nim" type="text" name="no_induk" required />
+          </div>
+          <div class="mb-4">
+              <label class="block text-gray-700">Nomor Telepon</label>
+              <input class="w-full mt-2 p-3 border rounded" placeholder="+62 nomor telepon" type="text" name="no_telepon" required />
+          </div>
+          <div class="mb-4">
+              <label class="block text-gray-700">Kategori</label>
+              <select class="w-full mt-2 p-3 border rounded" name="category" required>
+                  <option value="">Pilih kategori</option>
+                  <option value="Akademik">Akademik</option>
+                  <option value="Keuangan">Keuangan</option>
+                  <option value="IT Support">IT Support</option>
+                  <option value="Fasilitas">Fasilitas</option>
+                  <option value="Kemahasiswaan">Kemahasiswaan</option>
+                  <option value="Lainnya">Lainnya</option>
+              </select>
+          </div>
+          <div class="mb-4">
+              <label class="block text-gray-700">Deskripsi Masalah</label>
+              <textarea class="w-full mt-2 p-3 border rounded" placeholder="deskripsi masalah" name="description" required></textarea>
+          </div>
+          <div class="mb-4">
+              <label class="block text-gray-700">Lampiran Dokumen (Opsional)</label>
+              <input type="file" name="attachment" accept=".jpg,.png,.pdf,.doc,.docx,.xls,.xlsx" />
           </div>
           <div class="text-center">
-            <button class="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700" type="submit">
-              Kirim Aduan
-            </button>
+              <button class="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700" type="submit">
+                  Kirim Aduan
+              </button>
           </div>
-        </form>
+      </form>      
       </div>
       <div class="text-center mt-6">
         <a class="text-blue-600 hover:underline" href="{{ url('/track') }}">Sudah mengirim pengaduan? Klik di sini untuk melacak tiket</a>

@@ -34,21 +34,24 @@
                 Gunakan Email UNDIP dan Password SSO Anda untuk mengakses layanan
             </p>
 
-            <!-- Email Input -->
-            <div class="mb-4">
-                <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Email" type="email"/>
-            </div>
-
-            <!-- Password Input -->
-            <div class="mb-4 relative">
-                <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password" type="password"/>
-                <i class="fas fa-eye absolute right-3 top-3 text-gray-500"></i>
-            </div>
-
-            <!-- Login Button -->
-            <button class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                LOGIN
-            </button>
+            <form method="POST" action="/login">
+                @csrf
+                <!-- Email Input -->
+                <div class="mb-4">
+                    <input name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Email" type="email" required />
+                </div>
+            
+                <!-- Password Input -->
+                <div class="mb-4 relative">
+                    <input name="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password" type="password" required />
+                    <i class="fas fa-eye absolute right-3 top-3 text-gray-500"></i>
+                </div>
+            
+                <!-- Login Button -->
+                <button type="submit" class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    LOGIN
+                </button>
+            </form>            
 
             <!-- Back to Home Link -->
             <p class="text-center text-gray-600 mt-4">

@@ -41,7 +41,16 @@
             <a class="font-bold text-gray-600 hover:text-gray-800" href="#layanan">Layanan</a>
             <a class="font-bold text-gray-600 hover:text-gray-800" href="#tentang">Tentang</a>
             <a class="font-bold text-gray-600 hover:text-gray-800" href="#artikel">Artikel</a>
-            <a class="font-bold bg-blue-500 text-white px-6 py-2 rounded-lg flex items-center justify-center" href="{{ url('/loginuser') }}">Login</a>
+            @if (Auth::check())
+            <button class="font-bold bg-blue-500 text-white px-6 py-2 rounded-lg flex items-center justify-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Logout
+            </button>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @else
+            <a href="{{ url('/loginuser') }}" class="font-bold bg-blue-500 text-white px-6 py-2 rounded-lg flex items-center justify-center">Login</a>
+        @endif
         </nav>
     </header>
 

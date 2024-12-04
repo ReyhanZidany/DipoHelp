@@ -46,9 +46,11 @@
             </div>
 
             <!-- Login Button -->
-            <button class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                LOGIN
-            </button>
+            <a href="{{ route('homeadmin') }}">
+                <button class="w-full py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                    LOGIN
+                </button>
+            </a>                        
 
             <!-- Back to Home Link -->
             <p class="text-center text-gray-600 mt-4">
