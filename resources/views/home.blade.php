@@ -18,6 +18,13 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+      
+        #overlay {
+            display: none;
+        }
+        #overlay.block {
+            display: block; /* Tampilkan overlay ketika diperlukan */
+        }
     </style>
 </head>
 <body class="bg-white text-gray-800 scroll-smooth">
@@ -109,12 +116,30 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                   
                 <!-- Form Pengaduan Card -->
-                <a href="{{ route('form') }}" class="searchable-item">
+                <a href="{{ url('/form')  }}" class="searchable-item" onclick="checkLogin(event)">
                   <div class="bg-white shadow-xl rounded-lg p-6">
-                    <img src="assets/img/pengaduan.png" alt="Form Pengaduan" width="200" height="200" class="mx-auto">
-                    <h3 class="mt-4 text-xl font-semibold text-center">Form Pengaduan</h3>
+                      <img src="assets/img/pengaduan.png" alt="Form Pengaduan" width="200" height="200" class="mx-auto">
+                      <h3 class="mt-4 text-xl font-semibold text-center">Form Pengaduan</h3>
                   </div>
-                </a>
+              </a>
+              
+              <!-- Overlay -->
+              <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+
+              <!-- Notifikasi -->
+              <div id="notification" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto z-50">
+                  <div class="absolute top-0 right-0 transform translate-y-[-50%] translate-x-[50%] bg-blue-500 rounded-full p-2 cursor-pointer" onclick="hideNotification()">
+                      <i class="fas fa-times text-white"></i>
+                  </div>
+                  <h2 class="text-xl font-semibold text-center mb-4">Login dulu Dips!</h2>
+                  <p class="text-center text-gray-600 mb-6">
+                      Untuk mengakses layanan formulir pengaduan, silakan login terlebih dahulu agar kami dapat memproses laporan dengan cepat dan aman.
+                  </p>
+                  <div class="flex justify-center space-x-4">
+                      <a href="{{ url('/loginuser') }}" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Login</a>
+                      <button class="bg-blue-100 text-blue-600 font-semibold py-2 px-4 rounded-lg" onclick="hideNotification()">Kembali</button>
+                  </div>
+              </div>
 
                 <!-- Lacak Tiket Card -->
                 <a href="{{ url('/track') }}" class="searchable-item">
@@ -487,6 +512,43 @@
         });
     }
     </script>
+
+    <script>
+      function checkLogin(event) {
+          event.preventDefault(); // Mencegah link default
+          @if (!Auth::check())
+              // Tampilkan overlay dan notifikasi
+              const overlay = document.getElementById('overlay');
+              const notification = document.getElementById('notification');
+              overlay.classList.remove('hidden');
+              notification.classList.remove('hidden');
+              overlay.classList.add('block');
+              notification.classList.add('block');
+          @else
+              // Jika sudah login, arahkan ke form
+              window.location.href = "{{ url('/form') }}";
+          @endif
+      }
+
+      function hideNotification() {
+          const overlay = document.getElementById('overlay');
+          const notification = document.getElementById('notification');
+          overlay.classList.remove('block');
+          overlay.classList.add('hidden');
+          notification.classList.remove('block');
+          notification.classList.add('hidden');
+      }
+    </script>
+
+<style>
+  /* Tambahkan gaya untuk overlay */
+  #overlay {
+      display: none; /* Sembunyikan overlay secara default */
+  }
+  #overlay.block {
+      display: block; /* Tampilkan overlay ketika diperlukan */
+  }
+</style>
 
  </body>
 </html>

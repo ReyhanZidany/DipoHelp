@@ -34,7 +34,7 @@
                 Gunakan Email UNDIP dan Password SSO Anda untuk mengakses layanan
             </p>
 
-            <form method="POST" action="/login">
+            <form method="POST" action="/loginuser">
                 @csrf
                 <!-- Email Input -->
                 <div class="mb-4">

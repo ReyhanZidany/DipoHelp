@@ -27,9 +27,33 @@
         <a class="font-bold text-gray-600 hover:text-gray-800" href="/#layanan"> Layanan </a>
         <a class="font-bold text-gray-600 hover:text-gray-800" href="/#tentang"> Tentang </a>
         <a class="font-bold text-gray-600 hover:text-gray-800" href="/#artikel"> Artikel </a>
-        <a class="font-bold bg-blue-500 text-white px-6 py-2 rounded-lg flex items-center justify-center" href="{{ url('/loginuser') }}">Logout</a>
+        @if (Auth::check())
+            <button class="font-bold bg-blue-500 text-white px-6 py-2 rounded-lg flex items-center justify-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Logout
+            </button>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @else
+            <a href="{{ url('/loginuser') }}" class="font-bold bg-blue-500 text-white px-6 py-2 rounded-lg flex items-center justify-center">Login</a>
+        @endif
       </nav>
     </header>
+
+     <!-- Notifikasi -->
+     @if (session('success'))
+     <div class="flex items-center justify-center mt-4">
+         <div class="bg-white p-4 rounded-lg shadow-md flex items-center space-x-4">
+             <div class="text-green-500">
+                 <i class="fas fa-check-circle fa-2x"></i>
+             </div>
+             <div>
+                 <h1 class="text-lg font-semibold text-gray-800">{{ session('success') }}</h1>
+                 <p class="text-gray-600">Informasi lebih lanjut terkait detail laporan telah dikirim melalui Email Anda.</p>
+             </div>
+         </div>
+     </div>
+ @endif
 
     <!-- Form Pengaduan Section -->
     <main class="container mx-auto mt-10 px-6 max-w-screen-lg">

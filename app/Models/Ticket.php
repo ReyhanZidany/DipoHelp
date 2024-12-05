@@ -22,6 +22,7 @@ class Ticket extends Model
         'attachment',
         'category',
         'user_id',
+        'status',
     ];
 
     protected static function boot()
@@ -30,6 +31,7 @@ class Ticket extends Model
 
         static::creating(function ($ticket) {
             $ticket->ticket_number = 'TICKET-' . time() . '-' . rand(1000, 9999);
+            $ticket->status = 'Unsolve';
         });
     }
 }

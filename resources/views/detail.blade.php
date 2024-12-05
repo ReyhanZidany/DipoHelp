@@ -1,185 +1,86 @@
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Details Page
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
- </head>
- <body class="bg-gray-100">
-  <div class="flex">
-   <!-- Sidebar -->
-   <div class="w-64 bg-white h-screen shadow-md">
-    <div class="p-6">
-     <div class="flex items-center">
-      <img alt="Profile picture of admin" class="rounded-full w-12 h-12" height="50" src="https://storage.googleapis.com/a1aa/image/qREMOwxMgDbuONhBRJYV80edLKjf7ovWCef3Tu0u5Ib1XJeeE.jpg" width="50"/>
-      <div class="ml-4">
-       <h2 class="text-lg font-semibold">
-        Admin
-       </h2>
-       <p class="text-gray-500">
-        admin@email.com
-       </p>
-      </div>
-     </div>
-     <div class="mt-6">
-      <ul>
-       <li class="mb-4">
-        <a class="flex items-center text-gray-700 hover:text-blue-500" href="#">
-         <i class="fas fa-tachometer-alt mr-3">
-         </i>
-         Dashboard
-        </a>
-       </li>
-       <li class="mb-4">
-        <a class="flex items-center text-gray-700 hover:text-blue-500" href="#">
-         <i class="fas fa-file-alt mr-3">
-         </i>
-         Reports
-        </a>
-       </li>
-       <li class="mb-4">
-        <a class="flex items-center text-gray-700 hover:text-blue-500" href="#">
-         <i class="fas fa-user mr-3">
-         </i>
-         Account
-        </a>
-       </li>
-       <li>
-        <a class="flex items-center text-gray-700 hover:text-blue-500" href="#">
-         <i class="fas fa-sign-out-alt mr-3">
-         </i>
-         Logout
-        </a>
-       </li>
-      </ul>
-     </div>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Detail Tiket - {{ $ticket->ticket_number }}</title>
+    <link rel="icon" href="assets/img/dipohelp_bg.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-md">
+            <div class="p-4 flex flex-col items-center">
+                <img alt="Profile picture of the admin" class="rounded-full mb-4" height="100" src="assets/img/dipohelp_bg.png" width="100"/>
+                <div class="text-center">
+                    <h2 class="text-lg font-semibold">{{ $user->name }}</h2>
+                    <p class="text-gray-500">{{ $user->email }}</p>
+                </div>
+            </div>
+            <nav class="mt-8">
+                <a class="flex items-center px-4 py-2 text-gray-500 hover:bg-gray-200 rounded-lg" href="{{ route('homeadmin') }}">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a class="flex items-center px-4 py-2 mt-2 text-blue-600 bg-blue-100 hover:bg-gray-200 rounded-lg" href="{{ route('report') }}">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Reports
+                </a>
+            </nav>
+            <div class="mt-auto p-4">
+                <a class="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-200 rounded-lg" href="{{ url('loginadmin') }}">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Logout
+                </a>
+            </div>
+            <div class="p-9 mt-auto">
+                <img alt="Dipo Help logo" height="50" src="assets/img/dipohelp_logo.png" width="100"/>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <h1 class="text-2xl font-bold mb-6">Detail Tiket - {{ $ticket->ticket_number }}</h1>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-bold mb-4">Informasi Tiket</h2>
+                <div class="space-y-4">
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <strong>Nama Lengkap:</strong> {{ $ticket->name }}
+                    </div>
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <strong>Email:</strong> {{ $ticket->email }}
+                    </div>
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <strong>No Induk:</strong> {{ $ticket->no_induk }}
+                    </div>
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <strong>No Telepon:</strong> {{ $ticket->no_telepon }}
+                    </div>
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <strong>Kategori:</strong> {{ $ticket->category }}
+                    </div>
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <strong>Deskripsi:</strong> {{ $ticket->description }}
+                    </div>
+                    @if($ticket->attachment)
+                        <div class="border border-gray-300 p-4 rounded-lg">
+                            <strong>Attachment:</strong> <a href="{{ asset('storage/' . $ticket->attachment) }}" target="_blank" class="text-blue-500 hover:underline">Lihat File</a>
+                        </div>
+                    @endif
+                    <div class="border border-gray-300 p-4 rounded-lg">
+                        <strong>Status:</strong> 
+                        <span class="{{ $ticket->status == 'Solved' ? 'text-green-800 bg-green-100' : 'text-blue-800 bg-blue-100' }} px-2 py-1 rounded-full">
+                            {{ $ticket->status }}
+                        </span>
+                    </div>
+                </div>
+                <form action="{{ route('tickets.update', $ticket->id) }}" method="POST" class="mt-6">
+                    @csrf
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200">Tandai sebagai Selesai</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="absolute bottom-0 left-0 p-6">
-     <img alt="Dipo Help logo" height="50" src="https://storage.googleapis.com/a1aa/image/U9xYVee9krkX6EaaENmkYvldx6yrlm8HyNX6caxFXQMfrEvnA.jpg" width="100"/>
-    </div>
-   </div>
-   <!-- Main Content -->
-   <div class="flex-1 p-6">
-    <h1 class="text-2xl font-bold mb-6">
-     Details
-    </h1>
-    <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-     <div class="flex">
-      <div class="w-1/3 flex flex-col items-center">
-       <img alt="Profile picture of Alexa Rawles" class="rounded-full w-24 h-24 mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/riYYBcemyeo39kj1HaQFVcg3cAJx5ELuxeb4s8QS5tV8rEvnA.jpg" width="100"/>
-       <h2 class="text-xl font-semibold">
-        Alexa Rawles
-       </h2>
-       <p class="text-gray-500">
-        21120122120091
-       </p>
-       <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">
-        20241122-001
-       </button>
-      </div>
-      <div class="w-2/3 pl-6">
-       <div class="grid grid-cols-2 gap-4">
-        <div>
-         <label class="block text-gray-700">
-          Email
-         </label>
-         <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="alexarawles@students.undip.ac.id"/>
-        </div>
-        <div>
-         <label class="block text-gray-700">
-          Deskripsi Masalah
-         </label>
-         <textarea class="w-full bg-gray-100 p-2 rounded h-32" readonly="">Saya ingin melaporkan bahwa hingga saat ini, pencairan dana beasiswa prestasi untuk semester ini belum diterima oleh mahasiswa penerima beasiswa. Berdasarkan informasi yang diberikan, seharusnya dana tersebut sudah dicairkan pada bulan lalu. Hal ini menimbulkan kesulitan bagi beberapa mahasiswa yang sangat bergantung pada beasiswa untuk memenuhi kebutuhan akademik maupun sehari-hari. Mohon agar pihak universitas dapat mempercepat proses pencairan dan memberikan penjelasan mengenai keterlambatan ini. Terima kasih.</textarea>
-        </div>
-        <div>
-         <label class="block text-gray-700">
-          Nomor Telepon
-         </label>
-         <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="(62) 8590001234"/>
-        </div>
-        <div>
-         <label class="block text-gray-700">
-          Lampiran Dokumen
-         </label>
-         <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="-"/>
-        </div>
-        <div>
-         <label class="block text-gray-700">
-          Fakultas
-         </label>
-         <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="FISIP"/>
-        </div>
-        <div>
-         <label class="block text-gray-700">
-          Kategori
-         </label>
-         <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="Keuangan"/>
-        </div>
-        <div>
-         <label class="block text-gray-700">
-          Waktu &amp; Tanggal Laporan
-         </label>
-         <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="09.12 / 22 November 2024"/>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-md">
-     <div class="grid grid-cols-2 gap-4">
-      <div>
-       <label class="block text-gray-700">
-        Status
-       </label>
-       <select class="w-full bg-gray-100 p-2 rounded">
-        <option>
-         Dalam Proses
-        </option>
-        <option>
-         Selesai
-        </option>
-       </select>
-      </div>
-      <div>
-       <label class="block text-gray-700">
-        Estimasi
-       </label>
-       <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="5-8 Hari"/>
-      </div>
-      <div>
-       <label class="block text-gray-700">
-        Penanggungjawab
-       </label>
-       <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="Kepala Subbag Keuangan"/>
-      </div>
-      <div>
-       <label class="block text-gray-700">
-        Tindak Lanjut
-       </label>
-       <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="Keluhan sedang ditangani subbagian keuangan bersama manajer bagian kemahasiswaan"/>
-      </div>
-      <div>
-       <label class="block text-gray-700">
-        Catatan Tambahan
-       </label>
-       <input class="w-full bg-gray-100 p-2 rounded" readonly="" type="text" value="Akan ada artikel keterlambatan pencairan dana beasiswa prestasi"/>
-      </div>
-     </div>
-     <div class="mt-6 text-right">
-      <button class="bg-blue-500 text-white px-4 py-2 rounded">
-       SAVE
-      </button>
-     </div>
-    </div>
-   </div>
-  </div>
- </body>
+</body>
 </html>
-
-
-
-
